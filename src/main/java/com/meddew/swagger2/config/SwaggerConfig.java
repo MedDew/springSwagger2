@@ -19,7 +19,10 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("com.meddew"))
                 //To be able to see each documented route in the swagger limited to the scope of my API + Spring
                 //.apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
+                //To see the swagger documentation of any route of the api
+                //.paths(PathSelectors.any())
+                //To see the swagger documentation limited to base package given : see the StudentController
+                .paths(PathSelectors.ant("/school/*"))
                 .build();
     }
 }
