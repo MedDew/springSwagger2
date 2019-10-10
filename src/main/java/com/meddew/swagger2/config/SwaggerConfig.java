@@ -4,9 +4,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.Collections;
 
 @Configuration
 @EnableSwagger2
@@ -23,6 +27,20 @@ public class SwaggerConfig {
                 //.paths(PathSelectors.any())
                 //To see the swagger documentation limited to base package given : see the StudentController
                 .paths(PathSelectors.ant("/school/*"))
-                .build();
+                .build()
+                .apiInfo(getApiDetails());
+    }
+
+    private ApiInfo getApiDetails(){
+        return new ApiInfo(
+          "Students API",
+          "Basic CRUD for managing Students",
+          "1.0",
+          "For Teaching purpose",
+          new Contact("MedDew", "http://www.MedDew.ca", "m.dew@gmail.com"),
+          "API Licence",
+          "http://www.MedDew.ca",
+           Collections.emptyList()
+        );
     }
 }
