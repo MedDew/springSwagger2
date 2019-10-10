@@ -15,7 +15,10 @@ public class SwaggerConfig {
     public Docket api(){
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                //To be able to see each documented route in the swagger limited to the scope of my API
+                .apis(RequestHandlerSelectors.basePackage("com.meddew"))
+                //To be able to see each documented route in the swagger limited to the scope of my API + Spring
+                //.apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build();
     }
