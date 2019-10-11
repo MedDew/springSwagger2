@@ -1,5 +1,7 @@
 package com.meddew.swagger2.entities;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,10 +11,13 @@ import javax.persistence.Id;
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty(notes = "The unique id of a student")
     private Long id;
 
+    @ApiModelProperty(notes = "The first name of a student")
     private String firstName;
 
+    @ApiModelProperty(notes = "The last name of a student")
     private String lastName;
 
     public Long getId() {
