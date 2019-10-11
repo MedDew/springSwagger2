@@ -2,6 +2,7 @@ package com.meddew.swagger2.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -11,6 +12,7 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.service.ResponseMessage;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.data.rest.configuration.SpringDataRestConfiguration;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -46,8 +48,9 @@ public class SwaggerConfig {
                 //To see the swagger documentation of any route of the api
                 //.paths(PathSelectors.any())
                 //To see the swagger documentation limited to base package given : see the StudentController
-                .paths(PathSelectors.ant("/school/*"))
+                .paths(PathSelectors.regex("/school.*"))//PathSelectors.ant("/school/*")
                 .build()
+                .pathMapping("/")
                 .apiInfo(getApiDetails())
                 .useDefaultResponseMessages(false)
                 .globalResponseMessage(RequestMethod.GET,
