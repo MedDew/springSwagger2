@@ -4,12 +4,13 @@ import com.meddew.swagger2.entities.Student;
 import com.meddew.swagger2.repositories.StudentRepostory;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/school")
@@ -26,5 +27,16 @@ public class StudentController {
         });
 
         return studentList;
+    }
+
+    @GetMapping("/students/{studentId}")
+    @ApiOperation(value = "Fetch a student by its id", notes = "Provide an id to lookup specific student",response = Student.class)
+    public Student getStudentById(@PathVariable(name = "studentId") Long id){
+        Optional<Student> student = studentRepostory.findById(id);
+        if(student.isPresent()){
+            return student.get();
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The student id : "+id+" is not found");
+        }
     }
 }
