@@ -3,6 +3,7 @@ package com.meddew.swagger2.controller;
 import com.meddew.swagger2.entities.Student;
 import com.meddew.swagger2.repositories.StudentRepostory;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ public class StudentController {
 
     @GetMapping("/students/{studentId}")
     @ApiOperation(value = "Fetch a student by its id", notes = "Provide an id to lookup specific student",response = Student.class)
-    public Student getStudentById(@PathVariable(name = "studentId") Long id){
+    public Student getStudentById(@ApiParam(value = "Student Id value to retrieve", required=true) @PathVariable(name = "studentId") Long id){
         Optional<Student> student = studentRepostory.findById(id);
         if(student.isPresent()){
             return student.get();
